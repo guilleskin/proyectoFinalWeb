@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Tienda en Línea</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Mi Tienda en Línea</h1>
+    </header>
+
+    <div class="container">
+        <div class="nav-bar">
+            <button onclick="showSection('product-form')">Registro de Producto</button>
+            <button onclick="showSection('search-form')">Buscar Producto</button>
+            <button onclick="showSection('product-list')">Vista de Productos</button>
+        </div>
+
+        <!-- Registro de Producto -->
+        <div id="product-form" class="product-form">
+            <h2>Registro de Producto</h2>
+            <form id="register-product-form">
+                <label for="product-name">Nombre:</label>
+                <input type="text" id="product-name" required>
+
+                <label for="product-category">Categoría:</label>
+                <select id="product-category" required>
+                    <option value="">Selecciona una categoría</option>
+                    <option value="Deportes">Deportes</option>
+                    <option value="Tecnología">Tecnología</option>
+                    <option value="Ropa">Ropa</option>
+                    <!-- Más categorías -->
+                </select>
+
+                <label for="product-image">Imagen:</label>
+                <select id="product-image" required>
+                    <option value="">Selecciona una imagen</option>
+                    <option value="image1.jpg">Imagen 1</option>
+                    <option value="image2.jpg">Imagen 2</option>
+                    <!-- Más opciones -->
+                </select>
+
+                <label for="product-code">Código:</label>
+                <input type="text" id="product-code" required>
+
+                <label for="product-price">Precio:</label>
+                <input type="number" id="product-price" required>
+
+                <!-- Atributos adicionales -->
+                <label for="product-attr1">Atributo 1:</label>
+                <input type="text" id="product-attr1">
+
+                <label for="product-attr2">Atributo 2:</label>
+                <input type="text" id="product-attr2">
+
+                <label for="product-attr3">Atributo 3:</label>
+                <input type="text" id="product-attr3">
+
+                <button type="button" onclick="registerProduct()">Registrar</button>
+                <button type="button" onclick="clearProductForm()">Limpiar</button>
+            </form>
+        </div>
+
+        <!-- Pantalla de Indicaciones -->
+        <div id="instructions" class="product-form" style="display: none;">
+            <h2>Indicaciones</h2>
+            <p>Aquí se describe cómo registrar un producto.</p>
+            <button onclick="showSection('product-form')">Ir a Registro de Producto</button>
+        </div>
+
+        <!-- Buscar Producto -->
+        <div id="search-form" class="search-form" style="display: none;">
+            <h2>Buscar Producto</h2>
+            <form id="search-product-form">
+                <label for="search-name">Nombre:</label>
+                <input type="text" id="search-name">
+
+                <label for="search-category">Categoría:</label>
+                <select id="search-category">
+                    <option value="">Selecciona una categoría</option>
+                    <option value="Deportes">Deportes</option>
+                    <option value="Tecnología">Tecnología</option>
+                    <option value="Ropa">Ropa</option>
+                    <!-- Más categorías -->
+                </select>
+
+                <label for="search-price">Precio:</label>
+                <input type="number" id="search-price">
+
+                <button type="button" onclick="searchProducts()">Buscar</button>
+                <button type="button" onclick="clearSearchForm()">Limpiar</button>
+            </form>
+        </div>
+
+        <!-- Vista de Productos -->
+        <div id="product-list" class="product-list" style="display: none;">
+            <h2>Vista de Productos</h2>
+            <div id="products-container"></div>
+            <div class="pagination">
+                <button onclick="changePage('prev')">Página Anterior</button>
+                <span id="page-info">Página 1</span>
+                <button onclick="changePage('next')">Página Siguiente</button>
+            </div>
+        </div>
+
+        <!-- Lista de Resultados -->
+        <div id="results-list" class="results-list" style="display: none;">
+            <h2>Resultados de Búsqueda</h2>
+            <div id="results-container"></div>
+            <div class="pagination">
+                <button onclick="changeResultsPage('prev')">Página Anterior</button>
+                <span id="results-page-info">Página 1</span>
+                <button onclick="changeResultsPage('next')">Página Siguiente</button>
+            </div>
+            <button onclick="showSection('product-list')">Regresar a Vista de Productos</button>
+        </div>
+
+        <!-- Cargando -->
+        <div id="loading" class="loading" style="display: none;">
+            <p>Cargando...</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Mi Tienda en Línea</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

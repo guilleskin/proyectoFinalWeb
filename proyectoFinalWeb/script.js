@@ -686,7 +686,7 @@ function loadFlights() {
     const flightCard = document.createElement("div");
     flightCard.classList.add("flight-card");
     flightCard.innerHTML = `
-      <img src="${flight.imagen}" alt="${flight.nombre}">
+      <img src="img/${flight.imagen}" alt="${flight.nombre}"> <!-- Modificado aquí -->
       <h2>${flight.nombre}</h2>
       <p class="price">$${flight.precio}</p>
       <button onclick="showFlightDetails('${flight.codigo}')">Ver Detalles</button>
@@ -703,7 +703,7 @@ function showFlightDetails(codigo) {
   const detailContainer = document.getElementById("productDetailContainer");
   detailContainer.innerHTML = `
     <h2>${flight.nombre}</h2>
-    <img src="${flight.imagen}" alt="${flight.nombre}" style="width: 100%">
+    <img src="img/${flight.imagen}" alt="${flight.nombre}" style="width: 100%"> <!-- Modificado aquí -->
     <p><strong>Destino:</strong> ${flight.destino}</p>
     <p><strong>Duración:</strong> ${flight.duracion}</p>
     <p><strong>Precio:</strong> $${flight.precio}</p>
@@ -712,7 +712,6 @@ function showFlightDetails(codigo) {
   `;
 }
 
-// Función para agregar al carrito (utilizando localStorage)
 // Función para agregar al carrito (utilizando localStorage)
 function addToCart(codigo) {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -758,7 +757,7 @@ function filterFlights() {
 
 // Scroll infinito: detecta cuando se alcanza
 
-//boton para finalizar las compras
+// Botón para finalizar las compras
 document
   .getElementById("finalizePurchaseButton")
   .addEventListener("click", function () {
@@ -776,60 +775,44 @@ document
 
 */
 document.addEventListener("DOMContentLoaded", function () {
-  const presupuesto = parseFloat(localStorage.getItem("presupuesto"));
-  const cantidadProductosInicial = parseInt(
-    localStorage.getItem("cantidadProductos")
-  );
+  const cartItemsContainer = document
+    .getElementById("cartItems")
+    .getElementsByTagName("tbody")[0];
+  const totalAmountElement = document.getElementById("totalAmount");
+  const paymentForm = document.getElementById("payment");
 
-  if (presupuesto && cantidadProductosInicial) {
-    console.log("Presupuesto recuperado:", presupuesto);
-    console.log("Cantidad de productos inicial:", cantidadProductosInicial);
+  // Recuperar el carrito del Local Storage
+  const carrito = JSON.parse(localStorage.getItem("cart")) || [];
 
-    const cartItemsContainer = document
-      .getElementById("cartItems")
-      .getElementsByTagName("tbody")[0];
-    const totalAmountElement = document.getElementById("totalAmount");
-    const paymentForm = document.getElementById("payment");
+  let totalCompra = 0;
 
-    // Recuperar el carrito del Local Storage
-    const carrito = JSON.parse(localStorage.getItem("cart")) || [];
+  // Mostrar los productos en el carrito
+  carrito.forEach((producto) => {
+    const cantidad = producto.cantidad || 1; // Asegúrate de que la cantidad esté inicializada
+    const subtotal = producto.precio * cantidad; // Calcular subtotal
 
-    let totalCompra = 0;
+    totalCompra += subtotal; // Sumar al total
 
-    // Mostrar los productos en el carrito
-    carrito.forEach((producto) => {
-      const subtotal = producto.precio * producto.cantidad;
-      totalCompra += subtotal;
+    const row = document.createElement("tr");
+    row.innerHTML = `
+        <td>${producto.nombre}</td>
+        <td>${cantidad}</td> <!-- Mostrar cantidad -->
+        <td>$${producto.precio.toFixed(2)}</td>
+        <td>$${subtotal.toFixed(2)}</td>
+    `;
+    cartItemsContainer.appendChild(row);
+  });
 
-      const row = document.createElement("tr");
-      row.innerHTML = `
-              <td>${producto.nombre}</td>
-              <td>${producto.cantidad}</td>
-              <td>$${producto.precio.toFixed(2)}</td>
-              <td>$${subtotal.toFixed(2)}</td>
-          `;
-      cartItemsContainer.appendChild(row);
-    });
+  // Mostrar el total de la compra
+  totalAmountElement.innerHTML = `<strong>Total:</strong> $${totalCompra.toFixed(2)}`;
 
-    // Mostrar el total de la compra
-    totalAmountElement.innerHTML = `<strong>Total:</strong> $${totalCompra.toFixed(
-      2
-    )}`;
-
-    // Manejar el evento de finalizar compra
-    paymentForm.addEventListener("submit", function (event) {
-      event.preventDefault();
-      // Aquí puedes agregar la lógica para procesar el pago
-      alert("Compra finalizada. ¡Gracias por tu compra!");
-      // Opcionalmente, puedes limpiar el carrito y redirigir al usuario
-      localStorage.removeItem("cart");
-      window.location.href = "index.html"; // Redirigir a la página de inicio
-    });
-  } else {
-    console.error("No se encontraron los datos necesarios en Local Storage.");
-    alert(
-      "No se encontraron datos de presupuesto o cantidad de productos. Por favor, vuelve a la página de productos."
-    );
-    window.location.href = "productos.html"; // Redirigir a la página de productos si no hay datos
-  }
+  // Manejar el evento de finalizar compra
+  paymentForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    // Aquí puedes agregar la lógica para procesar el pago
+    alert("Compra finalizada. ¡Gracias por tu compra!");
+    // Opcionalmente, puedes limpiar el carrito y redirigir al usuario
+    localStorage.removeItem("cart");
+    window.location.href = "index.html"; // Redirigir a la página de inicio
+  });
 });
