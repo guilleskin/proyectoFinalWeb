@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aerolíneas y Vuelos Privados</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <img class="logo" src="img/logo.png" alt="">
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="carrito.html">Carrito</a>
+        </nav>
+    </header>
+
+    <section class="banner">
+        <h1>Explora Nuestros Vuelos</h1>
+    </section>
+
+    <main>
+        <section id="filters">
+            <label for="category">Categoría:</label>
+            <select id="category">
+                <option value="all">Todas</option>
+                <option value="Internacional">Internacional</option>
+                <option value="Nacional">Nacional</option>
+            </select>
+            <label for="maxPrice">Precio Máximo:</label>
+            <input type="number" id="maxPrice" placeholder="Ej. 10000">
+            <button onclick="filterFlights()">Filtrar</button>
+        </section>
+
+        <div id="mainContainer">
+            <section id="productListContainer">
+                <!-- Productos se agregarán aquí dinámicamente -->
+            </section>
+
+            <section id="productDetailContainer">
+                <!-- Detalles del producto seleccionado se mostrarán aquí -->
+            </section>
+            <button id="finalizePurchaseButton">Finalizar Compra</button>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <footer>
+        <p>&copy; 2024 Aerolínea. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+
+</html>

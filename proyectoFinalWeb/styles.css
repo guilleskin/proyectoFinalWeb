@@ -1,0 +1,218 @@
+/* Estilos Generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+header {
+    background-color: #0077b6; 
+    color: white;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    width: 50px;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 1em;
+    font-weight: bold;
+}
+
+header nav a:hover {
+    color: #ffb703; 
+}
+
+.banner {
+    background-image: url("img/banner-principal-hero-v2.png");
+    color: white;
+    text-align: center;
+    padding: 2em;
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+}
+
+.banner h1 {
+    font-size: 2em;
+}
+
+.formulario {
+    background-color: #caf0f8; 
+    padding: 2em;
+    max-width: 500px;
+    margin: 2em auto;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.formulario h2 {
+    color: #0077b6;
+}
+
+.formulario label {
+    display: block;
+    margin-top: 1em;
+    font-weight: bold;
+}
+
+.formulario input[type="text"],
+.formulario input[type="number"] {
+    width: 100%;
+    padding: 0.5em;
+    margin-top: 0.5em;
+    border: 1px solid #0077b6;
+    border-radius: 4px;
+}
+
+.formulario button {
+    background-color: #0077b6;
+    color: white;
+    border: none;
+    padding: 0.7em 1.5em;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1em;
+    font-size: 1em;
+    font-weight: bold;
+    width: 100%;
+}
+
+.formulario button:hover {
+    background-color: #0096c7; 
+}
+
+footer {
+    background-color: #0077b6;
+    color: white;
+    text-align: center;
+    padding: 1em;
+}
+
+/* Estilos para la sección de productos */
+
+h1 {
+    font-size: 1.8em;
+}
+
+#filters {
+    margin: 1em auto;
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+
+/* Estructura principal */
+#mainContainer {
+    display: flex;
+    gap: 1em;
+    padding: 1em;
+}
+
+/* Sección izquierda: lista de productos */
+#productListContainer {
+    width: 60%;
+    height: 500px;
+    overflow-y: auto;
+    background-color: #f2f2f2;
+    padding: 1em;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Sección derecha: detalles del producto */
+#productDetailContainer {
+    width: 40%;
+    padding: 1em;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-left: 2px solid #ddd;
+}
+
+/* Tarjeta de producto */
+.flight-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    margin-bottom: 1em;
+    cursor: pointer;
+    padding: 1em;
+}
+
+.flight-card:hover {
+    background-color: #e0f7fa;
+}
+
+.flight-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.flight-card h2 {
+    font-size: 1.2em;
+    margin: 0.5em 0;
+}
+
+.flight-card p {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.price {
+    font-size: 1.1em;
+    color: #e67e22;
+    margin: 0.5em 0;
+}
+
+/* Estilos para botones */
+button {
+    background-color: #005b96;
+    color: #fff;
+    border: none;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #004080;
+}
+
+/* Detalles del producto */
+#productDetailContainer h2 {
+    color: #0077b6;
+}
+
+#productDetailContainer img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+#productDetailContainer p {
+    margin: 0.5em 0;
+}
+
+#productDetailContainer .price {
+    font-size: 1.2em;
+    color: #e67e22;
+    font-weight: bold;
+}
+
+#productDetailContainer button {
+    width: 100%;
+    margin-top: 1em;
+    padding: 0.7em;
+}

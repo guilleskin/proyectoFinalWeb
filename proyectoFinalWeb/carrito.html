@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras - Aerolínea</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <img class="logo" src="img/logo.png" alt="">
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="productos.html">Explorar Vuelos</a>
+        </nav>
+    </header>
+
+    <section class="banner">
+        <h1>Productos Seleccionados</h1>
+    </section>
+
+    <main>
+        <table id="cartItems">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se llenarán los productos del carrito -->
+            </tbody>
+        </table>
+
+        <div id="totalAmount"></div>
+
+        <h2>Información de Pago</h2>
+        <form id="payment">
+            <label for="cardNumber">Número de Tarjeta:</label>
+            <input type="text" id="cardNumber" required>
+            <label for="expiryDate">Fecha de Expiración (MM/AAAA):</label>
+            <input type="text" id="expiryDate" required>
+            <label for="cardName">Nombre en la Tarjeta:</label>
+            <input type="text" id="cardName" required>
+            <label for="securityCode">Código de Seguridad:</label>
+            <input type="text" id="securityCode" required>
+            <label for="address">Dirección de Facturación:</label>
+            <input type="text" id="address" required>
+            <button type="submit">Pagar</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Aerolínea. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Importa el archivo JavaScript específico del carrito -->
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Recuperar el carrito del Local Storage
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const cartItemsContainer = document.querySelector("#cartItems tbody");
+            const totalAmountContainer = document.getElementById("totalAmount");
+
+            let totalAmount = 0;
+
+            // Verificar si el carrito está vacío
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = "<tr><td colspan='4'>Tu carrito está vacío.</td></tr>";
+            } else {
+                // Iterar sobre los productos en el carrito y mostrarlos
+                cart.forEach((item) => {
+                    const subtotal = item.precio * item.cantidad; // Calcular subtotal
+                    totalAmount += subtotal; // Sumar al total
+
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${item.nombre}</td>
+                        <td>${item.cantidad}</td>
+                        <td>$${item.precio}</td>
+                        <td>$${subtotal}</td>
+                    `;
+                    cartItemsContainer.appendChild(row);
+                });
+            }
+
+            // Mostrar el total
+            totalAmountContainer.innerHTML = `<h3>Total: $${totalAmount}</h3>`;
+        });
+    </script>
+</body>
+
+</html>
