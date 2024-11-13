@@ -673,20 +673,30 @@ const batchSize = 15;
 let filteredFlights = vuelos; // Para almacenar la lista filtrada o todos los productos si no hay filtro
 let carrito = []; // Array para almacenar productos seleccionados
 let totalCompra = 0;
+let isLoading = false; // Bandera para evitar múltiples cargas
 
 // Función para mostrar un lote de productos
 function loadFlights() {
+  if (isLoading) return; // Evitar múltiples cargas
+  isLoading = true;
+
   const container = document.getElementById("productListContainer");
 
   const flightsToShow = filteredFlights.slice(
     currentIndex,
     currentIndex + batchSize
   );
+
+  if (flightsToShow.length === 0) {
+    isLoading = false; // No hay más vuelos para cargar
+    return;
+  }
+
   flightsToShow.forEach((flight) => {
     const flightCard = document.createElement("div");
     flightCard.classList.add("flight-card");
     flightCard.innerHTML = `
-      <img src="img/${flight.imagen}" alt="${flight.nombre}"> <!-- Modificado aquí -->
+      <img src="img/${flight.imagen}" alt="${flight.nombre}">
       <h2>${flight.nombre}</h2>
       <p class="price">$${flight.precio}</p>
       <button onclick="showFlightDetails('${flight.codigo}')">Ver Detalles</button>
@@ -695,7 +705,18 @@ function loadFlights() {
   });
 
   currentIndex += batchSize;
+  isLoading = false; // Restablecer la bandera
 }
+
+// Función para manejar el scroll
+function handleScroll() {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+    loadFlights(); // Cargar más productos si estamos cerca del final
+  }
+}
+
+// Agregar el evento de scroll
+window.addEventListener("scroll", handleScroll);
 
 // Función para mostrar detalles del producto seleccionado
 function showFlightDetails(codigo) {
@@ -703,7 +724,7 @@ function showFlightDetails(codigo) {
   const detailContainer = document.getElementById("productDetailContainer");
   detailContainer.innerHTML = `
     <h2>${flight.nombre}</h2>
-    <img src="img/${flight.imagen}" alt="${flight.nombre}" style="width: 100%"> <!-- Modificado aquí -->
+    <img src="img/${flight.imagen}" alt="${flight.nombre}" style="width: 100%">
     <p><strong>Destino:</strong> ${flight.destino}</p>
     <p><strong>Duración:</strong> ${flight.duracion}</p>
     <p><strong>Precio:</strong> $${flight.precio}</p>
@@ -755,14 +776,15 @@ function filterFlights() {
   loadFlights();
 }
 
-// Scroll infinito: detecta cuando se alcanza
-
 // Botón para finalizar las compras
 document
   .getElementById("finalizePurchaseButton")
   .addEventListener("click", function () {
     window.location.href = "carrito.html";
   });
+
+// Cargar vuelos iniciales al cargar la página
+loadFlights();
 
 /*recupera los datos del index.. y permite finalizar las compras 
 
@@ -804,7 +826,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Mostrar el total de la compra
-  totalAmountElement.innerHTML = `<strong>Total:</strong> $${totalCompra.toFixed(2)}`;
+  totalAmountElement.innerHTML = `<strong>Total:</strong> $${totalCompra.toFixed(
+    2
+  )}`;
 
   // Manejar el evento de finalizar compra
   paymentForm.addEventListener("submit", function (event) {
